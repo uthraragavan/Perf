@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=" FILL ME IN ">
+    <meta name="author" content=" FILL ME IN ">
+    <title>Uthra Vijayaragavan: Portfolio</title>
+
+    <link rel="preload" href="css/style.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+    <link href="css/print.css" rel="stylesheet" media="print">
+
+  </head>
+
+  <body>
+    <header>
+      <a href="/"><img src="img/profilepic.jpg"></a>
+      <p>Uthra Vijayaragavan<br><span>Web Developer</span></p>
+    </header>
+
+    <div class="container">
+      <div class="hero">
+        <strong>I have started to learn about web development</strong> I have developed a strong interest in web page development and mastering the nuances. <br> Contact me: me@email.com
+      </div>
+
+      <div class="content">
+        <ul>
+          <li>
+            <img src="https://lh4.ggpht.com/kJEnfqhPvtm4m3EneSZ4fWYGS8lW4YNhEjk6zPkyrQaBUHc-2Y_ElDic99NHI0h-UBLXVbRCjFybFvrWxdk=s100">
+            <a href="project-2048.html">Build Your Own 2048!</a>
+            <p>I made my own version of 2048. How cool is that!?</p>
+          </li>
+
+          <li>
+            <img src="https://lh6.ggpht.com/f_0W8h__3G99CWTjnMjD8BUKm7yp2-wJyApLtTwFoFtlal2ULf_JgHIsOQq2NiYfKOdMlXlMHDKNo5XVZLs=s100">
+            <a href="project-webperf.html">Website Performance Optimization</a>
+            <p>Hey... this class looks familiar.</p>
+          </li>
+
+          <li>
+            <img src="https://lh5.ggpht.com/IKdCmTWn8a2nMhlwMYzryvzRN5CUZAOBr4tDrEAbszV7TIFe9pRAInA4kkYcgTXwrifJsBEsq1agTueuu-g=s100">
+            <a href="project-mobile.html">Mobile Web Development</a>
+            <p>Making mobile apps isn't so hard after all.</p>
+          </li>
+
+          <li>
+            <img style="width: 100px;" src="views/images/pizzeria-thumb.jpg">
+            <a href="views/pizza.html">Pizzeria</a>
+            <p>Who wants a performant pizza?</p>
+          </li>
+        </ul>
+      </div>
+
+      <footer>
+        <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
+         <script>
+          (function(w,g){w['GoogleAnalyticsObject']=g;
+          w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
+
+          // Optional TODO: replace with your Google Analytics profile ID.
+          ga('create', 'UA-XXXX-Y');
+          ga('send', 'pageview');
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" async></script>
+        <script type="text/javascript">
+          WebFont.load({
+            google: {
+              families: ['Open Sans']
+            }
+          });
+        </script>
+        <script src="http://www.google-analytics.com/analytics.js" async></script>
+        <script async src="js/perfmatters.js"></script>
+        <script>
+          (function(w) {
+              "use strict";
+              /* exported loadCSS */
+              var loadCSS = function( href, before, media ) {
+                // Arguments explained:
+                // `href` [REQUIRED] is the URL for your CSS file.
+                // `before` [OPTIONAL] is the element the script should use as a reference for injecting our stylesheet <link> before
+                  // By default, loadCSS attempts to inject the link after the last stylesheet or script in the DOM. However, you might desire a more specific location in your document.
+                // `media` [OPTIONAL] is the media type or query of the stylesheet. By default it will be 'all'
+                var doc = w.document;
+                var ss = doc.createElement( "link" );
+                var ref;
+                if( before ){
+                  ref = before;
+                }
+                else {
+                  var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+                  ref = refs[ refs.length - 1];
+                }
+
+                var sheets = doc.styleSheets;
+                ss.rel = "stylesheet";
+                ss.href = href;
+                // temporarily set media to something inapplicable to ensure it'll fetch without blocking render
+                ss.media = "only x";
+
+                // wait until body is defined before injecting link. This ensures a non-blocking load in IE11.
+                function ready( cb ) {
+                  if( doc.body ){
+                    return cb();
+                  }
+                  setTimeout(function() {
+                    ready( cb );
+                  });
+                }
+                // Inject link
+                  // Note: the ternary preserves the existing behavior of "before" argument, but we could choose to change the argument to "after" in a later release and standardize on ref.nextSibling for all refs
+                  // Note: `insertBefore` is used instead of `appendChild`, for safety re: http://www.paulirish.com/2011/surefire-dom-element-insertion/
+                ready( function() {
+                  ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+                });
+                // A method (exposed on return object for external use) that mimics onload by polling document.styleSheets until it includes the new sheet.
+                var onloadcssdefined = function( cb ) {
+                  var resolvedHref = ss.href;
+                  var i = sheets.length;
+                  while( i-- ){
+                    if( sheets[ i ].href === resolvedHref ){
+                      return cb();
+                    }
+                  }
+                  setTimeout(function() {
+                    onloadcssdefined( cb );
+                  });
+                };
+
+                function loadCB(){
+                  if( ss.addEventListener ) {
+                    ss.removeEventListener( "load", loadCB );
+                  }
+                  ss.media = media || "all";
+                }
+
+                // once loaded, set link's media back to `all` so that the stylesheet applies once it loads
+                if( ss.addEventListener ) {
+                  ss.addEventListener( "load", loadCB);
+                }
+                ss.onloadcssdefined = onloadcssdefined;
+                onloadcssdefined( loadCB );
+                return ss;
+              };
+              // commonjs
+              if( typeof exports !== "undefined" ) {
+                exports.loadCSS = loadCSS;
+              }
+              else {
+                w.loadCSS = loadCSS;
+              }
+          }( typeof global !== "undefined" ? global : this ));
+
+          (function( w ) {
+              // rel=preload support test
+              if( !w.loadCSS ){
+                return;
+              }
+              var rp = loadCSS.relpreload = {};
+              rp.support = function(){
+                try {
+                  return w.document.createElement( "link" ).relList.supports( "preload" );
+                } catch (e) {
+                  return false;
+                }
+              };
+
+              // loop preload links and fetch using loadCSS
+              rp.poly = function(){
+                var links = w.document.getElementsByTagName( "link" );
+                for( var i = 0; i < links.length; i++ ){
+                  var link = links[ i ];
+                  if( link.rel === "preload" && link.getAttribute( "as" ) === "style" ){
+                    w.loadCSS( link.href, link );
+                    link.rel = null;
+                  }
+                }
+              };
+
+              // if link[rel=preload] is not supported, we must fetch the CSS manually using loadCSS
+              if( !rp.support() ){
+                rp.poly();
+                var run = w.setInterval( rp.poly, 300 );
+                if( w.addEventListener ){
+                  w.addEventListener( "load", function(){
+                    w.clearInterval( run );
+                  } );
+                }
+                if( w.attachEvent ){
+                  w.attachEvent( "onload", function(){
+                    w.clearInterval( run );
+                  } )
+                }
+              }
+          }( this ));
+        </script>
+      </footer>
+    </div>
+  </body>
+</html>
