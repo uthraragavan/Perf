@@ -1,5 +1,5 @@
 
-### Setup Instructions
+### Setup Instructions to host your own web server
 * **Node JS for localhost web server**:  Install Node JS by following instructions from here https://nodejs.org/en/download/
 * **Ngrok for webserver over proxy**: Install ngrok by following instructions from here: https://ngrok.com/download
 * **Gulp as build configuration tool**: From Node JS command prompt, install gulp by following instructions from here: https://www.npmjs.com/package/gulp-download
@@ -13,6 +13,7 @@
     * browser-sync
     * ngrok
     * run-sequence
+
 ### Starting Web App and Measuring Page Speed
 ##### Measuring page speed from github server
 * The web app is hosted on https://uthraragavan.github.io/Perf/
