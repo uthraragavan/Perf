@@ -424,7 +424,7 @@ var resizePizzas = function(size) {
   changeSliderLabel(size);
 
    // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-  function determineDx (elem, size, oldsize) {
+  function determineDx (size, oldsize) {
   // Changes the slider value to a percent width
     function sizeSwitcher (size) {
       switch(size) {
@@ -449,9 +449,9 @@ var resizePizzas = function(size) {
   function changePizzaSizes(size) {
     var oldWidth = rpc[0].offsetWidth;
     var oldSize = oldWidth / windowWidth;
+    var dx = determineDx(size, oldSize);
+    var newwidth = (oldWidth + dx) + 'px';
     for (var i = 0; i < rpc.length; i++) {
-      var dx = determineDx(rpc[i], size, oldSize);
-      var newwidth = (oldWidth + dx) + 'px';
       rpc[i].style.width = newwidth;
     }
   }
@@ -468,8 +468,8 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 var rpc = document.querySelectorAll(".randomPizzaContainer");
@@ -499,6 +499,7 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
+
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
@@ -508,7 +509,6 @@ function updatePositions() {
     var phase = Math.sin(( st / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
-
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
   window.performance.mark("mark_end_frame");
@@ -527,7 +527,19 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  // Modify to add only as many moving pizza elements as required.
+  //The size of each pizza.png is 73 X 100
+  // Hence I calculate the number of pizzas that can be fit in a row by (window.innerWidth/73)
+  // and dividing that number by 2 to take into account spacing
+  // Similarly calculate the number of pizzas that can be fit in a column by
+  // (window.innerWidth/100)
+  // and divide that number by 2 to take into account spacing
+  // Multiplying both should give the number of moving pizzas really needed to be on screen
+
+
+  var totmovpizza=((window.innerHeight/100)/2)*((window.innerWidth/73)/2);
+  console.log(totmovpizza);
+  for (var i = 0; i < totmovpizza; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
